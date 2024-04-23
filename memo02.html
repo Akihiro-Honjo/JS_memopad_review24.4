@@ -29,6 +29,35 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
 
+     // データを保存する処理
+     $('#save').on('click', function(){
+      const data = {
+        title : $('#input').val(),
+        text : $('#text_area').val()
+      };
+      console.log(data);
+      const json = JSON.stringify(data);
+      console.log(json);
+      localStorage.setItem('memo' , json);
+    });
+    
+    // データを削除する処理
+    $('#clear').on('click', function(){
+      localStorage.removeItem('memo');
+      $('#input').val('');
+      $('#text_area').val('');
+    });
+
+    // データを取り出す処理
+    if(localStorage.getItem('memo')){
+      const json = localStorage.getItem('memo');
+      console.log(json);
+      const data = JSON.parse(json);
+      console.log(data);
+      $('#input').val(data.title);
+      $('#text_area').val(data.text);
+    }
+
   </script>
 
 </body>

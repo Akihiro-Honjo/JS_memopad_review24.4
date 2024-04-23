@@ -27,7 +27,25 @@
   </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
+    // データを保存する処理
+    $('#save').on('click', function(){
+      const text = $('#text_area').val();
+      console.log(text);
+      localStorage.setItem('memo', text);
+    });
+    
+    // データを削除する処理
+    $('#clear').on('click', function(){
+      localStorage.removeItem('memo');
+      $('#text_area').val('');
+    });
 
+    // データを取り出す処理
+    if(localStorage.getItem('memo')){
+      const text = localStorage.getItem('memo');
+      $('#text_area').val(text);
+    }
+    
   </script>
 
 </body>
