@@ -28,9 +28,25 @@
   <script>
 
 // 履歴を入れる配列
-const history = [];
+let history = [];
 
+// 画面開いたときの処理
+if(localStorage.getItem('omikuji')){
+  const json = localStorage.getItem('omikuji');
+  const data = JSON.parse(json);
 
+  history = data;
+      // タグに入れた結果を入れる配列
+      const historyHtml = [];
+    // 履歴の配列から1個ずつ取り出して、タグに入れる
+    for(let i = 0; i < history.length; i++){
+      historyHtml.push('<p>' + history[i] + '</p>');
+    }
+
+    $("#history").html(historyHtml);
+}
+
+// おみくじひいたときの処理
     $('#pull').on('click', function () {
       const omikuji = ['大吉', '中吉', '小吉', '凶', '大凶'];
       const random = Math.floor(Math.random() * omikuji.length);
@@ -40,6 +56,11 @@ const history = [];
 
       history.unshift(result);
     // console.log(history);
+
+    // 配列をlocalStorageに保存する処理
+    const json = JSON.stringify(history);
+    localStorage.setItem('omikuji' , json);
+
 
     // タグに入れた結果を入れる配列
     const historyHtml = [];
